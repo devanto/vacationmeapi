@@ -6,8 +6,7 @@ module.exports = (sequelize, Sequelize) => {
           unique: true
         },
         password: {
-          type: Sequelize.STRING,
-          allowNull: false,
+          type: Sequelize.STRING,          
         },
         email: {
             type: Sequelize.STRING
@@ -30,7 +29,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.BOOLEAN,
         defaultValue: false
        },
-       pid : {
+       provider : {
         type: Sequelize.STRING
           }
 

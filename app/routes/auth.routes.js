@@ -20,4 +20,9 @@ module.exports = function(app) {
   );
 
   app.post("/api/auth/signin", controller.signin);
+
+  app.post("/api/auth/googleauth", controller.googleauth);
+
+
+  app.post("/api/auth/fbauth", controller.fbauth);
 };
