@@ -50,8 +50,20 @@ exports.signup = (req, res) => {
         userId: user.id,
         token: crypto({ length: 10, type: 'url-safe' })
       }).then(async (result) => {
+        var token = jwt.sign({ id: user.id }, config.secret, {
+          expiresIn: 86400 // 24 hours
+        });
         await sendVerificationMail(req.body.username, result.token);
-        res.send({ message: "User registered successfully!"});
+        res.send({ 
+          message: "User registered successfully!",
+          id: user.id,
+          username: user.username,
+          phone: user.phone,
+          email: user.email,
+          emailverified: user.emailverified,
+          phoneverified: user.phoneverified,
+          accessToken: token
+        });
       })
         .catch(err => {
           res.status(500).send({ message: err.message });
@@ -106,7 +118,6 @@ exports.signin = (req, res) => {
           email: user.email,
           emailverified: user.emailverified,
           phoneverified: user.phoneverified,
-          roles: authorities,
           accessToken: token
         });
       });

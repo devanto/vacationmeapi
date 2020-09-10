@@ -1,6 +1,11 @@
+const multer = require('multer');
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
 const {emailVerificationController} = require("../controllers/emailVerify.controller");
+const {upload,fileUpload} = require("../controllers/fileupload.controller");
+const multconfig = require("../config/multer.config");
+
+
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -34,5 +39,17 @@ module.exports = function(app) {
   app.get("/api/verifyemail",
   emailVerificationController
   );
+
+
+// upload single file
+app.post('/upload-avatar',
+[authJwt.verifyToken,multer(multconfig).single('avatar')],
+fileUpload
+);
+
+// upload multiple files
+
+
+
 
 };

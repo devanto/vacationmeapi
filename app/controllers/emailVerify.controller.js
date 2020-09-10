@@ -34,7 +34,7 @@ sgMail.send(msg).then((data) => {
 exports.emailVerificationController = (req, res) => {
   console.log(req.query.email);
     return User.findOne({
-      where: { email: req.query.email }
+      where: { username: req.query.email }
     })
       .then(user => {
         if (user.emailverified) {
@@ -48,7 +48,7 @@ exports.emailVerificationController = (req, res) => {
                 return user
                   .update({ emailverified: true })
                   .then(updatedUser => {
-                    return res.status(403).json(`User with ${user.email} has been verified`);
+                    return res.status(403).json(`User with ${user.username} has been verified`);
                   })
                   .catch(ERR => {
                     return res.status(403).json(`Verification failed`+ERR);
